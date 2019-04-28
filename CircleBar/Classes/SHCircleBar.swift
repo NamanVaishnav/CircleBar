@@ -50,7 +50,7 @@ import UIKit
             mask.add(bezAnimation, forKey: nil)
         }
         self.layer.mask = mask
-
+        
     }
     
     func select(itemAt: Int, animated: Bool) {
@@ -67,23 +67,42 @@ import UIKit
         self.backgroundColor = .white
     }
     private func drawPath(for index: CGFloat) -> UIBezierPath {
+        
         let bezPath = UIBezierPath()
-
-        let firstPoint = CGPoint(x: (index * tabWidth) - 25, y: 0)
+        
+        let firstPoint = CGPoint(x: (index * tabWidth) - 50, y: 0)
         let firstPointFirstCurve = CGPoint(x: ((tabWidth * index) + tabWidth / 4), y: 0)
-        let firstPointSecondCurve = CGPoint(x: ((index * tabWidth) - 25) + tabWidth / 8, y: 52)
-
-        let middlePoint = CGPoint(x: (tabWidth * index) + tabWidth / 2, y: 55)
-        let middlePointFirstCurve = CGPoint(x: (((tabWidth * index) + tabWidth) - tabWidth / 8) + 25, y: 52)
+        let firstPointSecondCurve = CGPoint(x: ((index * tabWidth) - 25) + tabWidth / 8, y: 10)
+        
+        let middlePoint = CGPoint(x: (tabWidth * index) + tabWidth / 2, y: 40)
+        let middlePointFirstCurve = CGPoint(x: (((tabWidth * index) + tabWidth) - tabWidth / 8) + 25, y: 10)
         let middlePointSecondCurve = CGPoint(x: (((tabWidth * index) + tabWidth) - tabWidth / 4), y: 0)
-
-        let lastPoint = CGPoint(x: (tabWidth * index) + tabWidth + 25, y: 0)
+        
+        let lastPoint = CGPoint(x: (tabWidth * index) + tabWidth + 50, y: 0)
         bezPath.move(to: firstPoint)
-        bezPath.addCurve(to: middlePoint, controlPoint1: firstPointFirstCurve, controlPoint2: firstPointSecondCurve)
-        bezPath.addCurve(to: lastPoint, controlPoint1: middlePointFirstCurve, controlPoint2: middlePointSecondCurve)
+        bezPath.addQuadCurve(to: middlePoint, controlPoint: firstPointFirstCurve)
+        bezPath.addQuadCurve(to: lastPoint, controlPoint: middlePointSecondCurve)
+        //        bezPath.addCurve(to: middlePoint, controlPoint1: firstPointFirstCurve, controlPoint2: firstPointSecondCurve)
+        //        bezPath.addCurve(to: lastPoint, controlPoint1: middlePointFirstCurve, controlPoint2: middlePointSecondCurve)
         bezPath.append(UIBezierPath(rect: self.bounds))
         return bezPath
+        //        let bezPath = UIBezierPath()
+        //
+        //        let firstPoint = CGPoint(x: (index * tabWidth) - 25, y: 0)
+        //        let firstPointFirstCurve = CGPoint(x: ((tabWidth * index) + tabWidth / 4), y: 0)
+        //        let firstPointSecondCurve = CGPoint(x: ((index * tabWidth) - 25) + tabWidth / 8, y: 52)
+        //
+        //        let middlePoint = CGPoint(x: (tabWidth * index) + tabWidth / 2, y: 55)
+        //        let middlePointFirstCurve = CGPoint(x: (((tabWidth * index) + tabWidth) - tabWidth / 8) + 25, y: 52)
+        //        let middlePointSecondCurve = CGPoint(x: (((tabWidth * index) + tabWidth) - tabWidth / 4), y: 0)
+        //
+        //        let lastPoint = CGPoint(x: (tabWidth * index) + tabWidth + 25, y: 0)
+        //        bezPath.move(to: firstPoint)
+        //        bezPath.addCurve(to: middlePoint, controlPoint1: firstPointFirstCurve, controlPoint2: firstPointSecondCurve)
+        //        bezPath.addCurve(to: lastPoint, controlPoint1: middlePointFirstCurve, controlPoint2: middlePointSecondCurve)
+        //        bezPath.append(UIBezierPath(rect: self.bounds))
+        //        return bezPath
     }
     
-
+    
 }

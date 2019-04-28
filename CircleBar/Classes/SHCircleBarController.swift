@@ -9,7 +9,7 @@
 import UIKit
 
 class SHCircleBarController: UITabBarController {
-
+    
     fileprivate var shouldSelectOnTabBar = true
     private var circleView : UIView!
     private var circleImageView: UIImageView!
@@ -44,7 +44,7 @@ class SHCircleBarController: UITabBarController {
         
         self.circleView = UIView(frame: .zero)
         circleView.layer.cornerRadius = 30
-        circleView.backgroundColor = .white
+        circleView.backgroundColor = #colorLiteral(red: 0.920953393, green: 0.447560966, blue: 0.4741248488, alpha: 1)
         circleView.isUserInteractionEnabled = false
         
         self.circleImageView = UIImageView(frame: .zero)
@@ -54,15 +54,24 @@ class SHCircleBarController: UITabBarController {
         
         circleView.addSubview(circleImageView)
         self.view.addSubview(circleView)
-        let tabWidth = self.view.bounds.width / CGFloat(self.tabBar.items?.count ?? 4)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //        let tabWidth = self.view.bounds.width / CGFloat(self.tabBar.items?.count ?? 4)
+        //        circleView.frame = CGRect(x: tabWidth / 2 - 30, y: self.tabBar.frame.origin.y - 40, width: 60, height: 60)
         
-        circleView.frame = CGRect(x: tabWidth / 2 - 30, y: self.tabBar.frame.origin.y - 40, width: 60, height: 60)
+        let index = 2
+        let tabWidth = self.view.bounds.width / CGFloat(self.tabBar.items!.count)
+        self.circleView.frame = CGRect(x: (tabWidth * CGFloat(index) + tabWidth / 2 - 30), y: self.tabBar.frame.origin.y - 15, width: 60, height: 60)
         circleImageView.frame = self.circleView.bounds
+        guard let tabBar = tabBar as? SHCircleBar else {return}
+        selectedIndex = index
+        tabBar.select(itemAt: index, animated: false)
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         circleImageView.image = image(with: self.tabBar.selectedItem?.image ?? self.tabBar.items?.first?.image, scaledTo: CGSize(width: 30, height: 30))
-        
     }
     
     private var _barHeight: CGFloat = 74
